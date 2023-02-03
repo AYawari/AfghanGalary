@@ -12,6 +12,7 @@
 <body>
 	<div class="loginBox">
 		<div class="glass">
+	
 			<img src="{% static 'image/gallery-02.jpg'%}" class="user">
 			<h3>Login Here</h3>
 
@@ -23,15 +24,7 @@
 				</div>
 				<div class="inputBox">
 
-		{% if messages %}
-			<ul >
-				{% for message in messages %}
-				<li >
-					{{ message }}
-				</li>
-				{% endfor %}
-			</ul>
-			{% endif %}
+		
 
 					<input type="password" name="password" placeholder="password">
 					<span><i class="fa fa-lock"></i></span>
