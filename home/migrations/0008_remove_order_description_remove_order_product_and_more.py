@@ -7,35 +7,59 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('home', '0007_order_quantity'),
+        ("home", "0007_order_quantity"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='order',
-            name='description',
+            model_name="order",
+            name="description",
         ),
         migrations.RemoveField(
-            model_name='order',
-            name='product',
+            model_name="order",
+            name="product",
         ),
         migrations.RemoveField(
-            model_name='order',
-            name='quantity',
+            model_name="order",
+            name="quantity",
         ),
         migrations.AddField(
-            model_name='order',
-            name='transaction_id',
+            model_name="order",
+            name="transaction_id",
             field=models.CharField(blank=True, max_length=100, null=True),
         ),
         migrations.CreateModel(
-            name='OrderItem',
+            name="OrderItem",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('quantity', models.IntegerField(default=1)),
-                ('date_added', models.DateTimeField(auto_now_add=True)),
-                ('order', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='home.order')),
-                ('product', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='home.product')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("quantity", models.IntegerField(default=1)),
+                ("date_added", models.DateTimeField(auto_now_add=True)),
+                (
+                    "order",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to="home.order",
+                    ),
+                ),
+                (
+                    "product",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to="home.product",
+                    ),
+                ),
             ],
         ),
     ]

@@ -7,13 +7,14 @@ from . import models
 # Create your views here.
 def product_page(request):
     product = models.Product.objects.all()
-    context = {'product':product}
-    return render(request, 'home/index.html', context)
+    context = {"product": product}
+    return render(request, "home/index.html", context)
+
 
 def product_detail(request, pk):
     product = models.Product.objects.get(pk=pk)
-    context = {'product':product}
-    return render(request, 'home/product_detail.html', context)
+    context = {"product": product}
+    return render(request, "home/product_detail.html", context)
 
 
 def checkout(request):
@@ -22,8 +23,7 @@ def checkout(request):
         order, created = models.OrderItem.objects.get_or_create()
         items = order.orderitem_set.all()
     else:
-        items =[] 
-    context = {'items':items}
-        
-   
-    return render(request, 'home/checkout.html',context)
+        items = []
+    context = {"items": items}
+
+    return render(request, "home/checkout.html", context)

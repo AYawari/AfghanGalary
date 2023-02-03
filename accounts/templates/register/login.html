@@ -1,0 +1,59 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Login Page</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'css/mirror-login-form.css'%}">
+	<link href="{% static 'http://infiniteiotdevices.com/images/logo.png'%}" rel="icon" sizes="16x16" type="image/gif" />
+	<link href="{% static 'https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'%}" rel="stylesheet">
+</head>
+<body>
+	<div class="loginBox">
+		<div class="glass">
+			<img src="{% static 'image/gallery-02.jpg'%}" class="user">
+			<h3>Login Here</h3>
+
+			<form method = 'post'>
+				{% csrf_token %}
+				<div class="inputBox">
+					<input type="text" name="username" placeholder="Username">
+					<span><i class="fa fa-user"></i></span>
+				</div>
+				<div class="inputBox">
+
+		{% if messages %}
+			<ul >
+				{% for message in messages %}
+				<li >
+					{{ message }}
+				</li>
+				{% endfor %}
+			</ul>
+			{% endif %}
+
+					<input type="password" name="password" placeholder="password">
+					<span><i class="fa fa-lock"></i></span>
+				</div>
+				<input type="submit" name="" value="Login">
+			</form>
+			
+			{% comment %} <ul>
+				<li>
+				<a href="#" class="front"><i class="fa fa-facebook"></i></a><br>
+				<a href="#" class="back">Facebook</a>
+				</li>
+				<li>
+				<a href="#" class="front"><i class="fa fa-google"></i></a><br>
+				<a href="#" class="back">Google</a>
+				</li>
+			</ul> {% endcomment %}
+			<h4>Create account? <a href="{% url 'signup' %}">Sign Up</a></h4>
+			
+		</div>
+		
+	</div>
+
+</body>
+</html>
