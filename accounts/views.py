@@ -42,7 +42,7 @@ def signup_view(request):
             new_form = user_form.save(commit=False)
             new_form.set_password(user_form.cleaned_data["password"])
             new_form.save()
-            messages.success(request, 'seccessfully registered')
+            messages.success(request, "seccessfully registered")
             return redirect("login")
 
     return render(request, "register/signup.html", {"user_form": user_form})
