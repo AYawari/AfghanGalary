@@ -3,6 +3,7 @@ from multiprocessing import context
 from django.shortcuts import render, get_object_or_404
 from django.shortcuts import redirect
 from django.db.models import Q
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from . import models
 
 # Create your views here.
@@ -13,6 +14,18 @@ def product_page(request):
     product = models.Product.objects.filter(
         Q(name__icontains=search_product) | Q(description__icontains=search_product)
     )
+    page = request.GET.get('page')
+    paginator = Paginator(product, 6)
+    
+    try:
+        product = paginator.page(page)
+    except PageNotAnInteger:
+        page = 1
+        product = paginator.page(page)
+    except EmptyPage:
+        page = paginator.num_pages()
+        product = paginator.page(page)
+                
     context = {"product": product, "search_product": search_product}
     return render(request, "home/index.html", context)
 
