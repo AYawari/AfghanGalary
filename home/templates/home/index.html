@@ -166,7 +166,7 @@
 				<div class="col-md-6 col-lg-4 p-b-30 m-lr-auto">
 					<!-- Block1 -->
 					<div class="block1 wrap-pic-w">
-						<img src="images/banner-08.jpg" alt="IMG-BANNER">
+						<img src="{% static 'images/banner-08.jpg'%}" alt="IMG-BANNER">
 
 						<a href="product.html" class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
 							<div class="block1-txt-child1 flex-col-l">
@@ -191,7 +191,7 @@
 				<div class="col-md-6 col-lg-4 p-b-30 m-lr-auto">
 					<!-- Block1 -->
 					<div class="block1 wrap-pic-w">
-						<img src="images/banner-09.jpg" alt="IMG-BANNER">
+						<img src="{% static 'images/banner-09.jpg'%}" alt="IMG-BANNER">
 
 						<a href="product.html" class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
 							<div class="block1-txt-child1 flex-col-l">
@@ -276,7 +276,7 @@
 
 			<div class="row isotope-grid">
 				{% for p in product %}
-				<div class="col-sm-6 col-md-2 col-lg-2 p-b-35 isotope-item women">
+				<div class="col-sm-6 col-md-2 col-lg-3 p-b-35 isotope-item women">
 					<!-- Block2 -->
 					<div class="block2">
 						{% if p.tag %}
@@ -285,7 +285,7 @@
 							<div class="block2-pic hov-img0">
 							{% endif %}
 							
-							<img src="{{ p.imageURL }}" alt="IMG-PRODUCT">
+							<img height="350" src="{{ p.imageURL }}" alt="IMG-PRODUCT">
 
 							<a href="{% url 'detail' p.id %}?next=/home" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 ">
 								Quick View
@@ -314,18 +314,35 @@
 				</div>
 				{% endfor %}		
 			</div>
+			{% if product.custom_range %}
 			
-
 			<!-- Pagination -->
 			<div class="flex-c-m flex-w w-full p-t-38">
-				<a href="#" class="flex-c-m how-pagination1 trans-04 m-all-7 active-pagination1">
-					1
-				</a>
+			
 
-				<a href="#" class="flex-c-m how-pagination1 trans-04 m-all-7">
-					2
+				{% if product.has_previous %}
+				<a href="?page={{product.previous_page_number}}" class="flex-c-m how-pagination1 trans-04 m-all-7 active-pagination1">
+				&#10094;
 				</a>
+				{% endif %}
+				{% for pages in paginator.page_range %}
+				{% if pages == product.number %}
+				<a href="?page={{pages}}" class="flex-c-m how-pagination1 trans-04 m-all-7 active-pagination1">
+					{{pages}}
+				</a>
+				{% else %}
+				<a href="?page={{pages}}" class="flex-c-m how-pagination1 trans-04 m-all-7 ">
+					{{pages}}
+				</a>
+				{% endif %}
+				{% endfor %}
+				{% if product.has_next %}
+				<a href="?page={{product.next_page_number}}" class="flex-c-m how-pagination1 trans-04 m-all-7 active-pagination1">
+				&#10095;
+				</a>
+				{% endif %}
 			</div>
+			{% endif %}
 		</div>
 	</section>
 

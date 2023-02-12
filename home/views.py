@@ -15,7 +15,7 @@ def product_page(request):
         Q(name__icontains=search_product) | Q(description__icontains=search_product)
     )
     page = request.GET.get('page')
-    paginator = Paginator(product, 6)
+    paginator = Paginator(product, 8)
     
     try:
         product = paginator.page(page)
@@ -25,8 +25,16 @@ def product_page(request):
     except EmptyPage:
         page = paginator.num_pages()
         product = paginator.page(page)
-                
-    context = {"product": product, "search_product": search_product}
+        
+    leftindex = (int(page)-3)
+    if leftindex<1:
+        leftindex = 1
+    
+    rightindex = (int(page)+2)        
+    if rightindex > paginator.num_pages:
+        rightindex = paginator.num_pages + 1
+    custom_range = range(leftindex, rightindex)               
+    context = {"product": product, "search_product": search_product, 'paginator':paginator, 'custom_range':custom_range}
     return render(request, "home/index.html", context)
 
 
