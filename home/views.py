@@ -26,15 +26,15 @@ def product_page(request):
         page = paginator.num_pages()
         product = paginator.page(page)
         
-    leftindex = (int(page)-3)
-    if leftindex<1:
-        leftindex = 1
+    # leftindex = (int(page)-3)
+    # if leftindex<1:
+    #     leftindex = 1
     
-    rightindex = (int(page)+2)        
-    if rightindex > paginator.num_pages:
-        rightindex = paginator.num_pages + 1
-    custom_range = range(leftindex, rightindex)               
-    context = {"product": product, "search_product": search_product, 'paginator':paginator, 'custom_range':custom_range}
+    # rightindex = (int(page)+2)        
+    # if rightindex > paginator.num_pages:
+    #     rightindex = paginator.num_pages + 1
+    # custom_range = range(leftindex, rightindex)               
+    context = {"product": product, "search_product": search_product, 'paginator':paginator}
     return render(request, "home/index.html", context)
 
 
