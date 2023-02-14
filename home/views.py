@@ -25,7 +25,7 @@ def product_page(request):
     except EmptyPage:
         page = paginator.num_pages()
         product = paginator.page(page)
-        
+            
     # leftindex = (int(page)-3)
     # if leftindex<1:
     #     leftindex = 1
