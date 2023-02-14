@@ -21,3 +21,19 @@ def UserProfileCreated(sender, instance, created, **kwargs):
 
 
 post_save.connect(UserProfileCreated, sender=User)
+
+class Message(models.Model):
+    sender = models.ForeignKey(UserProfile, on_delete=models.SET_NULL, null=True, blank=True, related_name='sender')
+    recipient = models.ForeignKey(UserProfile, on_delete=models.SET_NULL, null=True, blank=True, related_name='reciver')
+    email = models.EmailField(max_length=200)
+    subject = models.CharField(max_length=200, null=True, blank=True)
+    body = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    is_read = models.BooleanField(default=False, null=True)
+    
+    
+    def __str__(self) -> str:
+        return self.subject
+    
+    class Meta:
+        ordering = ['-is_read', '-created_at']
