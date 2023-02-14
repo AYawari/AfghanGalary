@@ -14,6 +14,7 @@ def product_page(request):
     product = models.Product.objects.filter(
         Q(name__icontains=search_product) | Q(description__icontains=search_product)
     )
+    
     page = request.GET.get('page')
     paginator = Paginator(product, 8)
     

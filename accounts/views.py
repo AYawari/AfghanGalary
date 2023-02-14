@@ -5,6 +5,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from . import forms
+from .models import Message
 
 # Create your views here.
 
@@ -46,3 +47,11 @@ def signup_view(request):
             return redirect("login")
 
     return render(request, "register/signup.html", {"user_form": user_form})
+
+def message(request):
+    message = Message.objects.all()
+    context = {
+        'messages':message
+    }
+    return render(request, 'message/message.html', context)
+    
