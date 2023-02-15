@@ -27,11 +27,11 @@ class Product(models.Model):
         ("FreeSize", "FreeSize"),
     ]
     product_type_choices = [
-        ("Men", "Men"),
-        ("Women", "Womem"),
-        ("Shose", "Shose"),
-        ("Watch", "Watch"),
-        ("Bag", "Bag"),
+        ("men", "men"),
+        ("women", "women"),
+        ("shoes", "shoes"),
+        ("watch", "watch"),
+        ("bag", "bag"),
     ]
     name = models.CharField(max_length=200)
     tag = models.CharField(max_length=200, null=True, blank=True)

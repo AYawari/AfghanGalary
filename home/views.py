@@ -8,12 +8,23 @@ from . import models
 
 # Create your views here.
 def product_page(request):
-    search_product = ""
-    if request.GET.get("search_product"):
-        search_product = request.GET.get("search_product")
+    category = ''
+    
+    if request.GET.get('women'):
+        category = request.GET.get('women')
+    elif request.GET.get('men'):
+        category = request.GET.get('men')     
+    elif request.GET.get('watch'):
+        category = request.GET.get('watch')     
+    elif request.GET.get('shoes'):
+        category = request.GET.get('shoes')     
+    elif request.GET.get('bag'):
+        category = request.GET.get('bag')     
+
     product = models.Product.objects.filter(
-        Q(name__icontains=search_product) | Q(description__icontains=search_product)
+        Q(product_type__icontains=category)
     )
+    
     
     page = request.GET.get('page')
     paginator = Paginator(product, 8)
@@ -25,19 +36,22 @@ def product_page(request):
         product = paginator.page(page)
     except EmptyPage:
         page = paginator.num_pages()
-        product = paginator.page(page)
-            
-    # leftindex = (int(page)-3)
-    # if leftindex<1:
-    #     leftindex = 1
-    
-    # rightindex = (int(page)+2)        
-    # if rightindex > paginator.num_pages:
-    #     rightindex = paginator.num_pages + 1
-    # custom_range = range(leftindex, rightindex)               
-    context = {"product": product, "search_product": search_product, 'paginator':paginator}
+        product = paginator.page(page)              
+    context = {"product": product,'paginator':paginator, 'category':category}
     return render(request, "home/index.html", context)
 
+def search(request):
+    search_product = ""
+    if request.GET.get("search_product"):
+        search_product = request.GET.get("search_product")    
+    products = models.Product.objects.filter(
+        Q(name__icontains=search_product)
+    )
+    context = {
+        "search_product": search_product,
+        "product": products
+    }
+    return render(request, 'home/index.html', context)
 
 def product_detail(request, pk):
 
