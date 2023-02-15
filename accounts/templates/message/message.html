@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+<div style="background-color: cornsilk;">
+
+{% block title %}{% endblock title %}
+{% block content %}
+
+
+<br>
+<br>
+<br>
+<div class="container d-flex justify-content-center mt-100 mb-100" style="margin-bottom: 100px; ">
+    <div class="row">
+        <div class="col-md-12">
+  
+            <div class="card" style="padding: 20px;">
+                        <div class="card-body">
+                            <h4 class="card-title">Recent Comments</h4>
+                            <h6 class="card-subtitle">Latest Comments section by users</h6> 
+                        </div>
+
+                <div class="comment-widgets m-b-20">
+
+                {% for message in messages %}         
+                <div class="d-flex flex-row comment-row">
+                    <div class="p-2"><span class="round"><img src="{{message.sender.image.url}}" alt="user" width="50"></span></div>
+                    <div class="comment-text w-100">
+                        <h5>{{message.sender.first_name}}</h5>
+                        <div class="comment-footer">
+                            <span class="date">{{message.created_at}}</span>
+                            <span class="label label-info"> New Message({{new_message}})</span> <span class="action-icons">
+                                    <a href="#" data-abc="true"><i class="fa fa-pencil"></i></a>
+                                    <a href="#" data-abc="true"><i class="fa fa-rotate-right"></i></a>
+                                    <a href="#" data-abc="true"><i class="fa fa-heart"></i></a>
+                            </span>
+                            <p class="m-b-5 m-t-10">{{message.body | slice:150}}</p>
+              
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}  
+            </div>       
+                 
+            </div>       
+        </div>       
+    </div>       
+  
+  </div>
+{% endblock content %}
+</div> 

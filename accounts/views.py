@@ -50,8 +50,10 @@ def signup_view(request):
 
 def message(request):
     message = Message.objects.all()
+    unread = message.filter(is_read = False).count()
     context = {
-        'messages':message
+        'messages':message,
+        'new_message': unread
     }
     return render(request, 'message/message.html', context)
     
