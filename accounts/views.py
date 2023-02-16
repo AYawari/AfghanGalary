@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.models import User
 from django.contrib import messages
@@ -56,4 +56,14 @@ def message(request):
         'new_message': unread
     }
     return render(request, 'message/message.html', context)
+
+def message_detail(request, pk):
+    message = get_object_or_404(Message, pk=pk)
+    if message.is_read == False:
+        message.is_read == True
+        message.save()
+    context = {
+        'message':message
+    }    
+    return render(request, '', context)
     
