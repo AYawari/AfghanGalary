@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.models import User
 from django.contrib import messages
+from . models import UserProfile
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from . import forms
@@ -66,4 +67,9 @@ def message_detail(request, pk):
         'message':message
     }    
     return render(request, '', context)
+    
+def account_profile(request):
+    user_profile = UserProfile.objects.all()
+    print(user_profile)
+    return render(request, 'profile/ali.html')
     
